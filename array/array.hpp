@@ -38,6 +38,11 @@ public:
             return;
         }
 
+        if(mSize == mCapacity)
+        {
+            resize(2*mCapacity);
+        }
+
         for(int i = mSize; i >= index; --i)
         {
             mData[i] = mData[i-1];
@@ -115,15 +120,18 @@ public:
         if(index < 0 || index >= mSize)
         {
             printf("Index over bound");
-            return;
+            return NULL;
         }
-
         ret = mData[index];
         for(int i = index; i < mSize; ++i)
         {
             mData[i] = mData[i+1];
         }
         mSize--;
+        if( (mSize == mCapacity / 4) && 0 != mCapacity / 2)
+        {
+            resize(mCapacity / 2);
+        }
 
         return ret;
     }
@@ -141,9 +149,9 @@ public:
     bool removeElementOne(T e)
     {
         bool ret = true;
-        int index = 0;
+        int index = find(e);
 
-        if( index = find(e) != -1)
+        if( index != -1)
         {
             remove(index);
         }
@@ -180,7 +188,18 @@ public:
     }
 
 private:
-    void resize(int aNewCapacity);
+    void resize(int aNewCapacity)
+    {
+        T *newData = new T[aNewCapacity];
+
+        for( int i=0; i < mSize; ++i)
+        {
+            newData[i] = mData[i];
+        }
+
+        mData = newData;
+        mCapacity = aNewCapacity;
+    }
 
 private:
     T *mData;
