@@ -15,6 +15,11 @@ public:
         mData = new T[aCapacity];
     }
 
+    virtual ~Array()
+    {
+        delete mData;
+    }
+
     const int getCapacity() const
     {
         return mCapacity;
@@ -66,7 +71,7 @@ public:
         if(index < 0 || index >= mSize)
         {
             printf("Index over bound");
-            return;
+            return NULL;
         }
 
         return mData[index];

@@ -2,15 +2,15 @@
 #define STACK_HPP
 
 template<typename T>
-class stack
+class Stack
 {
 public:
-    int getSize() = 0;
-    bool isEmpty() = 0;
-    T pop() = 0;
-    void push(T e) = 0;
-    T peek() = 0;
-}
+    virtual int getSize() = 0;
+    virtual bool isEmpty() = 0;
+    virtual T pop() = 0;
+    virtual void push(T e) = 0;
+    virtual T peek() = 0;
+};
 
 #endif // STACK_HPP
 
